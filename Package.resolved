@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AsyncBackports",
+        "repositoryURL": "https://github.com/5sw/AsyncBackports",
+        "state": {
+          "branch": "main",
+          "revision": "55229d94730a1b45eb51215357823c2e812e48af",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftHawk",
+        "repositoryURL": "https://github.com/5sw/SwiftHawk",
+        "state": {
+          "branch": null,
+          "revision": "74347fa8d6115aa85705770dab9b51b7f52f0ccd",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
