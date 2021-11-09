@@ -5,15 +5,17 @@ import AsyncBackports
 public struct Request<T: Entity>: Encodable {
     public var skip: Int = 0
     public var limit: Int
-    public var filter: AnyFilter? = nil
+    public var filter: AnyFilter?
+    public var relations: [String]
 
     public var responseModel: String? { T.responseModel }
     public var endpoint: String { T.endpoint }
 
-    public init(skip: Int = 0, limit: Int = 0, filter: AnyFilter? = nil) {
+    public init(skip: Int = 0, limit: Int = 0, filter: AnyFilter? = nil, relations: [String] = []) {
         self.skip = skip
         self.limit = limit
         self.filter = filter
+        self.relations = relations
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -25,6 +27,7 @@ public struct Request<T: Entity>: Encodable {
             try filter.encode(container: &filterContainer)
         }
         try container.encodeIfPresent(responseModel, forKey: .responseModel)
+        try container.encode(relations, forKey: .relations)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -32,6 +35,7 @@ public struct Request<T: Entity>: Encodable {
         case limit = "limit"
         case filter = "filter"
         case responseModel = "responseModel"
+        case relations = "relations"
     }
 
     func encode() throws -> Data {
@@ -81,9 +85,13 @@ public extension FilterKey {
     static let start = Self("start")
     static let end = Self("end")
     static let teamId = Self("teamId")
+    static let id = Self("_id")
 }
-
 
 public struct QueryResponse<T: Entity & Decodable>: Decodable {
     public var data: [T]
+    public var count: Int
+    public var limit: Int
+    public var skip: Int
+    public var totalCount: Int
 }
