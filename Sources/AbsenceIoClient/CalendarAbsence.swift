@@ -4,7 +4,7 @@ public struct Absence: Entity, Encodable {
     public static let endpoint: String = "absences"
     public static let responseModel: String? = "Calendar"
 
-    public var daysCount: Int
+    public var daysCount: Float
     public var start: Date
     public var end: Date
     public var reason: Reason?
